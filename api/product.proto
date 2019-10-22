@@ -1,4 +1,6 @@
 syntax = "proto3";
+package protov1;
+
 import "google/protobuf/timestamp.proto";
 
 message BuyProduct {
@@ -23,10 +25,7 @@ message GetProductsRequest {
 message GetProductsResponse {
     repeated Product products = 1;
 }
-service ProductService {
-    //get list product
+service ProductsService {
     rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {};
-
-    //buy multi product
     rpc BuyProducts(BuyProductsRequest) returns (BuyProductsResponse) {};
 }
