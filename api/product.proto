@@ -1,16 +1,13 @@
 syntax = "proto3";
 package protov1;
-
-import "google/protobuf/timestamp.proto";
-
 message BuyProduct {
-    string product_id = 1;
+    int64 product_id = 1;
     int64 quantities = 2;
 }
 message Product {
-    string product_id = 1;
-    int64 quantities = 2;
-    google.protobuf.Timestamp created_at = 3;
+    int64 id = 1;
+    string title = 2;
+    int64 quantities = 3;
 }
 message BuyProductsRequest {
     repeated BuyProduct products = 1;
@@ -20,12 +17,12 @@ message BuyProductsResponse {
 }
 
 message GetProductsRequest {
-    repeated string product_ids = 1;
+    repeated int64 product_ids = 1;
 }
 message GetProductsResponse {
     repeated Product products = 1;
 }
 service ProductsService {
-    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {};
-    rpc BuyProducts(BuyProductsRequest) returns (BuyProductsResponse) {};
+    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse);
+    rpc BuyProducts(BuyProductsRequest) returns (BuyProductsResponse);
 }
