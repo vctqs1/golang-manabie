@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+message BuyProduct {
+    string product_id = 1;
+    int64 quantities = 2;
+}
+message Product {
+    string product_id = 1;
+    int64 quantities = 2;
+    google.protobuf.Timestamp created_at = 3;
+}
+message BuyProductsRequest {
+    repeated BuyProduct products = 1;
+}
+
+message BuyProductsResponse {
+}
+
+message GetProductsRequest {
+    repeated string product_ids = 1;
+}
+message GetProductsResponse {
+    repeated Product products = 1;
+}
+service ProductService {
+    //get list product
+    rpc GetProducts(GetProductsRequest) returns (GetProductsResponse) {};
+
+    //buy multi product
+    rpc BuyProducts(BuyProductsRequest) returns (BuyProductsResponse) {};
+}
