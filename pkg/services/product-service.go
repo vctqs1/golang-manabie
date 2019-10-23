@@ -106,7 +106,6 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 			return nil, errors.Wrap(err, "db.QueryEx")
 		}
 
-
 		
 		e := &protov1.Product{};
 		
@@ -136,29 +135,30 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 	} 
 
 	now := time.Now().UTC().Format("2006-01-02 03:04:05");
-
-    for _, value := range products {
-		query := fmt.Sprintf("UPDATE products SET `quantities`=%d, `updated_at`='%s' WHERE `id`=%d;", value.Quantities, now, value.Id);
+	fmt.Printf(now)
+    // for _, value := range products {
+	// 	query := fmt.Sprintf("UPDATE products SET `quantities`=%d, `updated_at`='%s' WHERE `id`=%d;", value.Quantities, now, value.Id);
 		
-		res, err := c.ExecContext(ctx, query)
+	// 	res, err := c.ExecContext(ctx, query)
 
-		if err != nil {
-			return nil, status.Error(codes.Unknown, "failed to update after buy products -> "+err.Error())
-		}
+	// 	if err != nil {
+	// 		return nil, status.Error(codes.Unknown, "failed to update after buy products -> "+err.Error())
+	// 	}
 
-		fmt.Printf("\nQuery: %s\n", query)
-		rows2, err := res.RowsAffected()
-		if err != nil {
-			return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
-		}
+	// 	fmt.Printf("\nQuery: %s\n", query)
+	// 	rows2, err := res.RowsAffected()
+	// 	if err != nil {
+	// 		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+	// 	}
 
-		if rows2 == 0 {
-			return nil, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.Id))
-		}
+	// 	if rows2 == 0 {
+	// 		return nil, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.Id))
+	// 	}
 
-	}
+	// }
 
 
+	fmt.Printf("buy products result: <%+v>\n\n", products)
 
 	return &protov1.BuyProductsResponse{}, nil;
 }

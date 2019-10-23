@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"log"
+	// "log"
 	"context"
 	"database/sql"
 	"flag"
@@ -64,16 +64,16 @@ func RunServer() error {
 		return fmt.Errorf("failed to open database: %v", err)
 	}
 
-	for {
-		ctx, cancel := context.WithCancel(context.Background())
-		go cancel()
+	// for {
+	// 	ctx, cancel := context.WithCancel(context.Background())
+	// 	go cancel()
 
-		row := db.QueryRowContext(ctx, `SELECT 1`)
-		var a int
-		if err := row.Scan(&a); err != nil && err != context.Canceled {
-			log.Fatal("Connection SQL: ", err)
-		}
-	}
+	// 	row := db.QueryRowContext(ctx, `SELECT 1`)
+	// 	var a int
+	// 	if err := row.Scan(&a); err != nil && err != context.Canceled {
+	// 		log.Fatal("Connection SQL: ", err)
+	// 	}
+	// }
 	defer db.Close()
 
 	v1API := protov1.NewProductsService(db)
