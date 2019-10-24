@@ -1,15 +1,16 @@
-package controllers
+package controllers;
 
 import (
 	"net/http"
-	"encoding/json"
-	"context"
 
 	"github.com/vctqs1/golang-manabie/pkg/services"
-	u "github.com/vctqs1/golang-manabie/pkg/controllers/utils"
+	u "github.com/vctqs1/golang-manabie/pkg/utils"
 )
 
-var BuyProducts = func(w http.ResponseWriter, r *http.Request) {
-	resp := protov1.BuyProducts(context.Context, r.Body)
+var Buy = func(w http.ResponseWriter, r *http.Request) {
+	resp := protov1.BuyProduct(
+		r.Context(),
+		r.Body,
+	)
 	u.Respond(w, resp)
 }
