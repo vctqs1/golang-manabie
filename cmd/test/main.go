@@ -45,9 +45,13 @@ func main() {
 
 	// buy products
 	req2 := protov1.BuyProductsRequest{
-		Products: []*protov1.BuyProduct{{
+		Products: []*protov1.BuyProduct{
+			{
 				ProductId: 1,
 				Quantities: 2,	
+			},{
+				ProductId: 2,
+				Quantities: 6,	
 			},
 		},
 	}

@@ -87,9 +87,15 @@ func (rcv *productsServiceServer) GetProducts(ctx context.Context, req *protov1.
 }
 func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.BuyProductsRequest) (*protov1.BuyProductsResponse, error) {
 	// get SQL connection from pool
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+
 	c, err := rcv.connect(ctx)
 	if err != nil {
-		return nil, err
+		return &protov1.BuyProductsResponse{
+			Successful: false,
+		}, err
 	}
 	defer c.Close()
 	
@@ -103,7 +109,9 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 		rows, err := c.QueryContext(ctx, query)
 		
 		if err != nil {
-			return nil, errors.Wrap(err, "db.QueryEx")
+			return &protov1.BuyProductsResponse{
+				Successful: false,
+			}, errors.Wrap(err, "db.QueryEx")
 		}
 
 		
@@ -113,14 +121,20 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 
 		if !rows.Next() {
 			if err := rows.Err(); err != nil {
-				return nil, status.Error(codes.Unknown, "failed to retrieve data: "+err.Error())
+				return &protov1.BuyProductsResponse{
+					Successful: false,
+				}, status.Error(codes.Unknown, "failed to retrieve data: "+err.Error())
 			}
-			return nil, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.ProductId))
+			return &protov1.BuyProductsResponse{
+				Successful: false,
+			}, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.ProductId))
 		}
 
 		err = rows.Scan(&e.Id, &e.Title, &e.Quantities);
 		if err != nil {
-			return nil, errors.Wrap(err, "rows.Scan")
+			return &protov1.BuyProductsResponse{
+				Successful: false,
+			}, errors.Wrap(err, "rows.Scan")
 		}
 		
 		e.Quantities = e.Quantities - value.Quantities;
@@ -131,34 +145,44 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 	}
 
 	if len(products) != len(req.Products) {
-		return nil, status.Error(codes.InvalidArgument, "buy error");
+		return &protov1.BuyProductsResponse{
+			Successful: false,
+		}, status.Error(codes.InvalidArgument, "buy error: product not avaialble");
 	} 
 
 	now := time.Now().UTC().Format("2006-01-02 03:04:05");
 	fmt.Printf(now)
-    // for _, value := range products {
-	// 	query := fmt.Sprintf("UPDATE products SET `quantities`=%d, `updated_at`='%s' WHERE `id`=%d;", value.Quantities, now, value.Id);
+    for _, value := range products {
+		// query := fmt.Sprintf("UPDATE products SET `quantities` = %d, `updated_at` = %s WHERE `id` = %d;", value.Quantities, now, value.Id);
 		
-	// 	res, err := c.ExecContext(ctx, query)
+		res, err := c.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `id` = ?;", value.Quantities, now, value.Id)
 
-	// 	if err != nil {
-	// 		return nil, status.Error(codes.Unknown, "failed to update after buy products -> "+err.Error())
-	// 	}
+		if err != nil {
+			return &protov1.BuyProductsResponse{
+				Successful: false,
+			}, status.Error(codes.Unknown, "failed to update after buy products -> "+err.Error())
+		}
 
-	// 	fmt.Printf("\nQuery: %s\n", query)
-	// 	rows2, err := res.RowsAffected()
-	// 	if err != nil {
-	// 		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
-	// 	}
+		// fmt.Printf("\nQuery: %s\n", query)
+		row, err := res.RowsAffected()
+		if err != nil {
+			return &protov1.BuyProductsResponse{
+				Successful: false,
+			}, status.Error(codes.Unknown, "failed to retrieve rows affected value-> "+err.Error())
+		}
 
-	// 	if rows2 == 0 {
-	// 		return nil, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.Id))
-	// 	}
+		if row == 0 {
+			return &protov1.BuyProductsResponse{
+				Successful: false,
+			}, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.Id))
+		}
 
-	// }
+	}
 
 
 	fmt.Printf("buy products result: <%+v>\n\n", products)
 
-	return &protov1.BuyProductsResponse{}, nil;
+	return &protov1.BuyProductsResponse{
+		Successful: true,
+	}, nil;
 }
