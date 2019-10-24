@@ -9,8 +9,11 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"google.golang.org/grpc"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/gorilla/handlers"
 
-	"github.com/vctqs1/golang-manabie/pkg/protocol/grpc"
+	_grpc "github.com/vctqs1/golang-manabie/pkg/protocol/grpc"
 	"github.com/vctqs1/golang-manabie/pkg/services"
 )
 
@@ -78,15 +81,23 @@ func RunServer() error {
 
 	v1API := protov1.NewProductsService(db)
 
-
-	router := mux.NewRouter()
-	
-	err = http.ListenAndServe(":" + cfg.GRPCPort, router) //Launch the app, visit localhost:port/api
+	grpcGateway := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true, EnumsAsInts: true}))
+	opts := []grpc.DialOption{grpc.WithInsecure()}
+	err = protov1.RegisterProductsServiceHandlerFromEndpoint(ctx, grpcGateway, cfg.GRPCPort, opts)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Printf("fail ", err)
 	}
-	router.HandleFunc("/api/product/buy", controllers.CreateAccount).Methods("POST")
 
 
-	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
+	grpcGatewayRouter := mux.NewRouter()
+	grpcGatewayRouter.NewRoute().Handler(grpcGateway)
+	if err := http.ListenAndServe(cfg.GRPCPort, handlers.CORS(
+		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE"}),
+		handlers.AllowedHeaders([]string{"Content-Type", "Accept", "Authorization"}),
+	)(grpcGatewayRouter)); err != nil {
+		fmt.Printf("failed to serve", err)
+	}
+
+	return _grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 }

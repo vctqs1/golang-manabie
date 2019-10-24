@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -30,7 +29,6 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-
 	// get products
 	req1 := protov1.GetProductsRequest{
 		ProductIds: []int64{},
@@ -41,17 +39,15 @@ func main() {
 	}
 	log.Printf("get products result: <%+v>\n\n", res1)
 
-
-
 	// example 1: buy products: valid quantities
 	req2 := protov1.BuyProductsRequest{
 		Products: []*protov1.BuyProduct{
 			{
-				ProductId: 1,
-				Quantities: 2,	
-			},{
-				ProductId: 2,
-				Quantities: 6,	
+				ProductId:  1,
+				Quantities: 2,
+			}, {
+				ProductId:  2,
+				Quantities: 6,
 			},
 		},
 	}
@@ -61,16 +57,15 @@ func main() {
 	}
 	log.Printf("buy products: valid quantities result: <%+v>\n\n", res2)
 
-
 	// example 2: buy products: invalid quantities
 	req3 := protov1.BuyProductsRequest{
 		Products: []*protov1.BuyProduct{
 			{
-				ProductId: 1,
-				Quantities: 2,	
-			},{
-				ProductId: 2,
-				Quantities: 6,	
+				ProductId:  1,
+				Quantities: 2,
+			}, {
+				ProductId:  2,
+				Quantities: 6,
 			},
 		},
 	}
@@ -80,31 +75,30 @@ func main() {
 	}
 	log.Printf("buy products: invalid quantities result: <%+v>\n\n", res3)
 
-
 	//example 3
 	req4 := []*protov1.BuyProductsRequest{{
 		Products: []*protov1.BuyProduct{
 			{
-				ProductId: 4,
-				Quantities: 1,	
-			},{
-				ProductId: 5,
-				Quantities: 1,	
+				ProductId:  4,
+				Quantities: 1,
+			}, {
+				ProductId:  5,
+				Quantities: 1,
 			},
 		},
-	},{
+	}, {
 		Products: []*protov1.BuyProduct{
 			{
-				ProductId: 4,
-				Quantities: 1,	
-			},{
-				ProductId: 5,
-				Quantities: 2,	
+				ProductId:  4,
+				Quantities: 1,
+			}, {
+				ProductId:  5,
+				Quantities: 2,
 			},
 		},
 	}}
 
-    for _, value := range req4 {
+	for _, value := range req4 {
 		res, err := c.BuyProducts(ctx, value)
 		if err != nil {
 			log.Printf("Example 3: buy products: invalid quantities failed: <%+v>\n\n", err)
@@ -116,32 +110,31 @@ func main() {
 	req5 := []*protov1.BuyProductsRequest{{
 		Products: []*protov1.BuyProduct{
 			{
-				ProductId: 6,
-				Quantities: 1,	
-			},{
-				ProductId: 7,
-				Quantities: 1,	
+				ProductId:  6,
+				Quantities: 1,
+			}, {
+				ProductId:  7,
+				Quantities: 1,
 			},
 		},
-	},{
+	}, {
 		Products: []*protov1.BuyProduct{
 			{
-				ProductId: 6,
-				Quantities: 1,	
-			},{
-				ProductId: 7,
-				Quantities: 2,	
+				ProductId:  6,
+				Quantities: 1,
+			}, {
+				ProductId:  7,
+				Quantities: 2,
 			},
 		},
 	}}
 
-    for _, value := range req5 {
+	for _, value := range req5 {
 		res, err := c.BuyProducts(ctx, value)
 		if err != nil {
 			log.Printf("Example 4: buy products: invalid quantities failed: <%+v>\n\n", err)
 		}
 		log.Printf("Example 4: buy products:  <%+v>\n\n", res)
 	}
-
 
 }

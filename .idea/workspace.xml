@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f66d8c2-ed28-4b39-9e97-e0d4d5e21f98" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/controllers/products.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/controllers/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/product.proto" beforeDir="false" afterPath="$PROJECT_DIR$/api/product.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/test/buy_product_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/test/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/test/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/products.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/cmd/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/cmd/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controllers/products.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controllers/products.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/protocol/grpc/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/protocol/grpc/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/services/product-service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/services/product-service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/utils/utils.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +24,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
   <component name="ProjectId" id="1SYFVLVfmH5v1MPbi9Z5AXmamtZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -24,6 +34,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -46,10 +57,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>direct</proxy>
   </component>
 </project>
