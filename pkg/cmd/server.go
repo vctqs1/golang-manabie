@@ -1,14 +1,14 @@
 package cmd
 
 import (
-	// "log"
 	"context"
 	"database/sql"
 	"flag"
 	"fmt"
+	"net/http"
 
-	// mysql driver
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
 
 	"github.com/vctqs1/golang-manabie/pkg/protocol/grpc"
 	"github.com/vctqs1/golang-manabie/pkg/services"
@@ -77,6 +77,16 @@ func RunServer() error {
 	defer db.Close()
 
 	v1API := protov1.NewProductsService(db)
+
+
+	router := mux.NewRouter()
+	
+	err = http.ListenAndServe(":" + cfg.GRPCPort, router) //Launch the app, visit localhost:port/api
+	if err != nil {
+		fmt.Print(err)
+	}
+	router.HandleFunc("/api/product/buy", controllers.CreateAccount).Methods("POST")
+
 
 	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 }

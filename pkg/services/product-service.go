@@ -44,11 +44,13 @@ func arrayToString(a []int64, delim string) string {
 func (rcv *productsServiceServer) GetProducts(ctx context.Context, req *protov1.GetProductsRequest) (*protov1.GetProductsResponse, error) {
 
 	// get SQL connection from pool
-	c, err := rcv.connect(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer c.Close()
+	// db, err := rcv.connect(ctx)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// defer db.Close()
+
+	db := rcv.db
 
 	//get products by list ids
 	query := ""
@@ -56,7 +58,7 @@ func (rcv *productsServiceServer) GetProducts(ctx context.Context, req *protov1.
 		query =  "WHERE id IN (" + arrayToString(req.ProductIds, ", ") + ")";
 	}
 		
-	rows, err := c.QueryContext(ctx, "SELECT id, title, quantities FROM products " + query)
+	rows, err := db.QueryContext(ctx, "SELECT id, title, quantities FROM products " + query)
 	
 	if err != nil {
 		return nil, errors.Wrap(err, "db.QueryEx")
@@ -91,14 +93,14 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 	defer cancel()
 
 
-	c, err := rcv.connect(ctx)
-	if err != nil {
-		return &protov1.BuyProductsResponse{
-			Successful: false,
-		}, err
-	}
-	defer c.Close()
-	
+	// db, err := rcv.connect(ctx)
+	// if err != nil {
+	// 	return &protov1.BuyProductsResponse{
+	// 		Successful: false,
+	// 	}, err
+	// }
+	// defer db.Close()
+	db := rcv.db
 	
 	products := make([]*protov1.Product, 0);
 
@@ -106,7 +108,7 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 
 		//get products by list ids
 		query := fmt.Sprintf("SELECT id, title, quantities FROM products WHERE id = %d AND quantities >= %d;" , value.ProductId, value.Quantities);
-		rows, err := c.QueryContext(ctx, query)
+		rows, err := db.QueryContext(ctx, query)
 		
 		if err != nil {
 			return &protov1.BuyProductsResponse{
@@ -138,7 +140,6 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 		}
 		
 		e.Quantities = e.Quantities - value.Quantities;
-		fmt.Printf("\nQuantities: %d\n", e.Quantities)
 
 		products = append(products, e)
 
@@ -155,7 +156,7 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
     for _, value := range products {
 		// query := fmt.Sprintf("UPDATE products SET `quantities` = %d, `updated_at` = %s WHERE `id` = %d;", value.Quantities, now, value.Id);
 		
-		res, err := c.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `id` = ?;", value.Quantities, now, value.Id)
+		res, err := db.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `id` = ?;", value.Quantities, now, value.Id)
 
 		if err != nil {
 			return &protov1.BuyProductsResponse{
@@ -180,7 +181,6 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 	}
 
 
-	fmt.Printf("buy products result: <%+v>\n\n", products)
 
 	return &protov1.BuyProductsResponse{
 		Successful: true,
