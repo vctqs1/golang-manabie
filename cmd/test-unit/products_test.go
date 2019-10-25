@@ -1,8 +1,9 @@
-package test;
+package test_unit;
 
 import (
 	"test"
 	"net/http/httptest"
+	
 	"github.com/vctqs1/golang-manabie/pkg/api"
 )
 
