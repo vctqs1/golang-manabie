@@ -1,0 +1,145 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "product.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/product/buy": {
+      "post": {
+        "operationId": "BuyProducts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protov1BuyProductsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protov1BuyProductsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProductsService"
+        ]
+      }
+    },
+    "/api/product/get": {
+      "post": {
+        "operationId": "GetProducts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protov1GetProductsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protov1GetProductsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ProductsService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protov1BuyProduct": {
+      "type": "object",
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantities": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protov1BuyProductsRequest": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protov1BuyProduct"
+          }
+        }
+      }
+    },
+    "protov1BuyProductsResponse": {
+      "type": "object",
+      "properties": {
+        "successful": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
+    "protov1GetProductsRequest": {
+      "type": "object",
+      "properties": {
+        "product_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "protov1GetProductsResponse": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protov1Product"
+          }
+        }
+      }
+    },
+    "protov1Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "quantities": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

@@ -42,13 +42,13 @@ func arrayToString(a []int64, delim string) string {
 func (rcv *productsServiceServer) GetProducts(ctx context.Context, req *protov1.GetProductsRequest) (*protov1.GetProductsResponse, error) {
 
 	// get SQL connection from pool
-	// db, err := rcv.connect(ctx)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// defer db.Close()
+	db, err := rcv.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
 
-	db := rcv.db
+	// db := rcv.db;
 
 	//get products by list ids
 	query := ""

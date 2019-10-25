@@ -1,20 +1,21 @@
 package cmd
 
 import (
+	"flag"
 	"context"
 	"database/sql"
-	"flag"
 	"fmt"
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
 
 	_grpc "github.com/vctqs1/golang-manabie/pkg/protocol/grpc"
-	"github.com/vctqs1/golang-manabie/pkg/services"
+	_services "github.com/vctqs1/golang-manabie/pkg/services"
+	"github.com/vctqs1/golang-manabie/pkg/api"
 )
 
 // Config is configuration for Server
@@ -34,9 +35,15 @@ type Config struct {
 	DatastoreDBSchema string
 }
 
-// RunServer runs gRPC server and HTTP gateway
+
+
+
 func RunServer() error {
+	
 	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
 
 	// get configuration
 	var cfg Config
@@ -50,10 +57,7 @@ func RunServer() error {
 	if len(cfg.GRPCPort) == 0 {
 		return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
 	}
-
-	// add MySQL driver specific parameter to parse date/time
-	// Drop it for another database
-	param := "parseTime=true"
+	param := "parseTime=true&charset=utf8mb4,utf8"
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?%s",
 		cfg.DatastoreDBUser,
@@ -61,43 +65,49 @@ func RunServer() error {
 		cfg.DatastoreDBHost,
 		cfg.DatastoreDBSchema,
 		param)
-
+		
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return fmt.Errorf("failed to open database: %v", err)
 	}
+	go RunGRPC(cfg);
 
-	// for {
-	// 	ctx, cancel := context.WithCancel(context.Background())
-	// 	go cancel()
+	v1API := _services.NewProductsService(db)
 
-	// 	row := db.QueryRowContext(ctx, `SELECT 1`)
-	// 	var a int
-	// 	if err := row.Scan(&a); err != nil && err != context.Canceled {
-	// 		log.Fatal("Connection SQL: ", err)
-	// 	}
-	// }
-	defer db.Close()
+	return _grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 
-	v1API := protov1.NewProductsService(db)
+}
+// RunGRPC runs gRPC server and HTTP gateway
+func RunGRPC(cfg Config) {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel();
 
-	grpcGateway := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true, EnumsAsInts: true}))
+
+
+	grpcServerEndpoint := ":"+cfg.GRPCPort;
+	fmt.Printf(grpcServerEndpoint)
+
+	grpcGateway := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err = protov1.RegisterProductsServiceHandlerFromEndpoint(ctx, grpcGateway, cfg.GRPCPort, opts)
+	err := protov1.RegisterProductsServiceHandlerFromEndpoint(ctx, grpcGateway, grpcServerEndpoint, opts)
 	if err != nil {
-		fmt.Printf("fail ", err)
+		fmt.Printf("fail %s", err)
 	}
 
 
 	grpcGatewayRouter := mux.NewRouter()
+	grpcGatewayRouter.Handle("/hello", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte(`hello world!`))
+	})).Methods("GET");
+
 	grpcGatewayRouter.NewRoute().Handler(grpcGateway)
-	if err := http.ListenAndServe(cfg.GRPCPort, handlers.CORS(
+
+	if err := http.ListenAndServe(":8080", handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE"}),
 		handlers.AllowedHeaders([]string{"Content-Type", "Accept", "Authorization"}),
 	)(grpcGatewayRouter)); err != nil {
-		fmt.Printf("failed to serve", err)
+		fmt.Printf("failed to serve %s", err)
 	}
-
-	return _grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 }
