@@ -86,7 +86,7 @@ func RunGRPC(cfg Config) {
 
 
 	grpcServerEndpoint := ":"+cfg.GRPCPort;
-	fmt.Printf(grpcServerEndpoint)
+	fmt.Printf("GRPC Port: %s\n",grpcServerEndpoint)
 
 	grpcGateway := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
