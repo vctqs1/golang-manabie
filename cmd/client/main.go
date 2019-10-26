@@ -7,15 +7,108 @@ import (
 	"log"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 
 	"github.com/vctqs1/golang-manabie/pkg/api"
 )
 
+func Ex1(address string, id []int64) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Printf("did not connect: <%+v>\n\n", err)
+	}
+	defer conn.Close()
+
+	client := protov1.NewProductsServiceClient(conn)
+
+	// get products
+	req := protov1.GetProductsRequest{
+		ProductIds: id,
+	}
+	res, err := client.GetProducts(ctx, &req)
+	if err != nil {
+		log.Printf("get products failed: <%+v>\n\n", err)
+	}
+	log.Printf("get products result: <%+v>\n\n", res)
+	return err
+}
+
+
+func Ex2(address string, arg []*protov1.BuyProduct) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Printf("did not connect: <%+v>\n\n", err)
+	}
+	defer conn.Close()
+
+	client := protov1.NewProductsServiceClient(conn)
+
+	// get products
+	req := protov1.BuyProductsRequest{
+		Products: arg,
+	}
+	res, err := client.BuyProducts(ctx, &req)
+	if err != nil {
+		log.Printf("buy products failed: <%+v>\n\n", err)
+	}
+	log.Printf("buy products result: <%+v>\n\n", res)
+	return err
+}
+
+
+
+
+func Ex3(address string, arg1, arg2 []*protov1.BuyProduct) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Printf("did not connect: <%+v>\n\n", err)
+	}
+	defer conn.Close()
+
+	client := protov1.NewProductsServiceClient(conn)
+
+	// get products
+	
+	req := []*protov1.BuyProductsRequest{{
+		Products: arg1,
+	}, {
+		Products: arg2,
+	}}
+	var message error
+	for _, value := range req {
+		res, err := client.BuyProducts(ctx, value)
+		if err != nil {
+			log.Printf("call 2: failed: <%+v>\n\n", err)
+			message = err
+		}
+		log.Printf("call 2: buy products:  <%+v>\n\n", res)
+	}
+
+	return message;
+}
+
+
 func main() {
-	address := flag.String("server", "", "gRPC server in format host:port")
-	flag.Parse()
+
+	address := flag.String("server", "localhost:9090", "gRPC server in format host:port")
+	id1 := flag.Int64("id1", 1, "valid id 1")
+	id2 := flag.Int64("id2", 2, "valid id 2")
+	quantities1 := flag.Int64("quantities1", 1, "quantities of valid id 1")
+	quantities2 := flag.Int64("quantities2", 2, "quantities of valid id 2")
+	invalidid := flag.Int64("invalidid", 7, "invalidid")
+	invalidquantities := flag.Int64("invalidquantities", 20, "invalidquantities")
+
+	flag.Parse();
+
+	fmt.Printf("ID1: %d, Quantities1: %d\n", *id1, *quantities1)
+	fmt.Printf("ID2: %d, Quantities2: %d\n", *id2, *quantities2)
+	fmt.Printf("invalidid: %d, invalidquantities: %d\n", *invalidid, *invalidquantities)
 
 	conn, err := grpc.Dial(*address, grpc.WithInsecure())
 	if err != nil {
@@ -23,135 +116,55 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := protov1.NewProductsServiceClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
-	router := gin.New()
-
-
-	router.POST("/post", func(c *gin.Context) {
-
-		id := c.Query("id")
-		page := c.DefaultQuery("page", "0")
-		name := c.PostForm("name")
-		message := c.PostForm("message")
-
-		fmt.Printf("id: %s; page: %s; name: %s; message: %s", id, page, name, message)
-	})
-	
-	err = router.Run(":8080")
-	if err != nil {
-		log.Fatal(err)
-	}
-	
 	// get products
-	req1 := protov1.GetProductsRequest{
-		ProductIds: []int64{},
-	}
-	res1, err := c.GetProducts(ctx, &req1)
-	if err != nil {
-		log.Printf("get products failed: <%+v>\n\n", err)
-	}
-	log.Printf("get products result: <%+v>\n\n", res1)
+	_ = Ex1(*address, []int64{*id1, *id2})
+
+
+	
 
 	// example 1: buy products: valid quantities
-	req2 := protov1.BuyProductsRequest{
-		Products: []*protov1.BuyProduct{
-			{
-				ProductId:  1,
-				Quantities: 2,
-			}, {
-				ProductId:  2,
-				Quantities: 6,
-			},
-		},
-	}
-	res2, err := c.BuyProducts(ctx, &req2)
-	if err != nil {
-		log.Printf("buy products: valid quantities failed: <%+v>\n\n", err)
-	}
-	log.Printf("buy products: valid quantities result: <%+v>\n\n", res2)
+	_ = Ex2(*address, []*protov1.BuyProduct{
+		{
+			ProductId: *id1,
+			Quantities: *quantities1,
+		}, 
+	})
 
+	
 	// example 2: buy products: invalid quantities
-	req3 := protov1.BuyProductsRequest{
-		Products: []*protov1.BuyProduct{
-			{
-				ProductId:  1,
-				Quantities: 2,
-			}, {
-				ProductId:  2,
-				Quantities: 6,
-			},
-		},
-	}
-	res3, err := c.BuyProducts(ctx, &req3)
-	if err != nil {
-		log.Printf("buy products: invalid quantities failed: <%+v>\n\n", err)
-	}
-	log.Printf("buy products: invalid quantities result: <%+v>\n\n", res3)
-
+	_ = Ex2(*address, []*protov1.BuyProduct{
+		{
+			ProductId: *invalidid,
+			Quantities: *invalidquantities,
+		}, 
+	})
+	
 	//example 3
-	req4 := []*protov1.BuyProductsRequest{{
-		Products: []*protov1.BuyProduct{
-			{
-				ProductId:  4,
-				Quantities: 1,
-			}, {
-				ProductId:  5,
-				Quantities: 1,
-			},
-		},
-	}, {
-		Products: []*protov1.BuyProduct{
-			{
-				ProductId:  4,
-				Quantities: 1,
-			}, {
-				ProductId:  5,
-				Quantities: 2,
-			},
-		},
-	}}
-
-	for _, value := range req4 {
-		res, err := c.BuyProducts(ctx, value)
-		if err != nil {
-			log.Printf("Example 3: buy products: invalid quantities failed: <%+v>\n\n", err)
-		}
-		log.Printf("Example 3: buy products:  <%+v>\n\n", res)
-	}
+	_ = Ex3(*address, []*protov1.BuyProduct{
+		{
+			ProductId: *id1,
+			Quantities: *quantities1,
+		}, 
+	}, []*protov1.BuyProduct{
+		{
+			ProductId: *id2,
+			Quantities: *quantities2,
+		}, 
+	});
 
 	//example 4
-	req5 := []*protov1.BuyProductsRequest{{
-		Products: []*protov1.BuyProduct{
-			{
-				ProductId:  6,
-				Quantities: 1,
-			}, {
-				ProductId:  7,
-				Quantities: 1,
-			},
-		},
-	}, {
-		Products: []*protov1.BuyProduct{
-			{
-				ProductId:  6,
-				Quantities: 1,
-			}, {
-				ProductId:  7,
-				Quantities: 2,
-			},
-		},
-	}}
+	_ = Ex3(*address, []*protov1.BuyProduct{
+		{
+			ProductId: *id1,
+			Quantities: *quantities1,
+		}, 
+	}, []*protov1.BuyProduct{
+		{
+			ProductId: *invalidid,
+			Quantities: *invalidquantities,
+		}, 
+	});
 
-	for _, value := range req5 {
-		res, err := c.BuyProducts(ctx, value)
-		if err != nil {
-			log.Printf("Example 4: buy products: invalid quantities failed: <%+v>\n\n", err)
-		}
-		log.Printf("Example 4: buy products:  <%+v>\n\n", res)
-	}
-
+	
 }

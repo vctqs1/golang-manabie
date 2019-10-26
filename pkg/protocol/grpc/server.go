@@ -20,8 +20,8 @@ func RunServer(ctx context.Context, v1API protov1.ProductsServiceServer, port st
 	}
 
 	// register service
-	server := grpc.NewServer()
-	protov1.RegisterProductsServiceServer(server, v1API)
+	gRPCServer := grpc.NewServer()
+	protov1.RegisterProductsServiceServer(gRPCServer, v1API)
 
 	// graceful shutdown
 	c := make(chan os.Signal, 1)

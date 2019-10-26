@@ -34,6 +34,7 @@ require (
 	github.com/rogpeppe/fastuuid v1.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.5.0 // indirect
 	github.com/smartystreets/assertions v1.0.1 // indirect
+	github.com/stretchr/testify v1.4.0
 	go.opencensus.io v0.22.1 // indirect
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/exp v0.0.0-20191024150812-c286b889502e // indirect
