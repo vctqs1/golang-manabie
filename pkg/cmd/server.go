@@ -64,16 +64,10 @@ func RunServer() error {
 	if err != nil {
 		return fmt.Errorf("failed to open database: %v", err)
 	}
-	// go RunGRPC(cfg);
+	
 
 	v1API := _services.NewProductsService(db)
 
 	return _grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 
-}
-// RunGRPC runs gRPC server and HTTP gateway
-func RunGRPC(cfg Config) {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel();
 }

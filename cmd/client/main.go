@@ -118,13 +118,13 @@ func main() {
 
 
 	// get products
-	_ = Ex1(*address, []int64{*id1, *id2})
+	Ex1(*address, []int64{*id1, *id2})
 
 
 	
 
 	// example 1: buy products: valid quantities
-	_ = Ex2(*address, []*protov1.BuyProduct{
+	Ex2(*address, []*protov1.BuyProduct{
 		{
 			ProductId: *id1,
 			Quantities: *quantities1,
@@ -133,7 +133,7 @@ func main() {
 
 	
 	// example 2: buy products: invalid quantities
-	_ = Ex2(*address, []*protov1.BuyProduct{
+	Ex2(*address, []*protov1.BuyProduct{
 		{
 			ProductId: *invalidid,
 			Quantities: *invalidquantities,
@@ -141,7 +141,7 @@ func main() {
 	})
 	
 	//example 3
-	_ = Ex3(*address, []*protov1.BuyProduct{
+	Ex3(*address, []*protov1.BuyProduct{
 		{
 			ProductId: *id1,
 			Quantities: *quantities1,
@@ -154,7 +154,7 @@ func main() {
 	});
 
 	//example 4
-	_ = Ex3(*address, []*protov1.BuyProduct{
+	Ex3(*address, []*protov1.BuyProduct{
 		{
 			ProductId: *id1,
 			Quantities: *quantities1,

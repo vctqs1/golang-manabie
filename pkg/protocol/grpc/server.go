@@ -31,7 +31,7 @@ func RunServer(ctx context.Context, v1API protov1.ProductsServiceServer, port st
 			// sig is a ^C, handle it
 			log.Println("shutting down gRPC server...")
 
-			server.GracefulStop()
+			gRPCServer.GracefulStop()
 
 			<-ctx.Done()
 		}
@@ -39,5 +39,5 @@ func RunServer(ctx context.Context, v1API protov1.ProductsServiceServer, port st
 
 	// start gRPC server
 	log.Println("starting gRPC server...")
-	return server.Serve(listen)
+	return gRPCServer.Serve(listen)
 }

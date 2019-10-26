@@ -30,8 +30,9 @@ func BuyAProduct(address string, arg []*protov1.BuyProduct) error {
 	res, err := client.BuyProducts(ctx, &req)
 	if err != nil {
 		log.Printf("buy products failed: <%+v>\n\n", err)
+	} else {
+		log.Printf("buy products result: <%+v>\n\n", res)
 	}
-	log.Printf("buy products result: <%+v>\n\n", res)
 	return err
 }
 
