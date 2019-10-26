@@ -70,7 +70,7 @@ func RunServer() error {
 	if err != nil {
 		return fmt.Errorf("failed to open database: %v", err)
 	}
-	go RunGRPC(cfg);
+	// go RunGRPC(cfg);
 
 	v1API := _services.NewProductsService(db)
 
@@ -110,4 +110,5 @@ func RunGRPC(cfg Config) {
 	)(grpcGatewayRouter)); err != nil {
 		fmt.Printf("failed to serve %s", err)
 	}
+
 }

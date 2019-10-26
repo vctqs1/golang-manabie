@@ -1,23 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"context"
 	"flag"
 	"log"
 	"time"
 
-	// "github.com/golang/protobuf/ptypes"
+	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 
 	"github.com/vctqs1/golang-manabie/pkg/api"
 )
 
 func main() {
-	// get configuration
 	address := flag.String("server", "", "gRPC server in format host:port")
 	flag.Parse()
 
-	// Set up a connection to the server.
 	conn, err := grpc.Dial(*address, grpc.WithInsecure())
 	if err != nil {
 		log.Printf("did not connect: <%+v>\n\n", err)
@@ -29,6 +28,24 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
+	router := gin.New()
+
+
+	router.POST("/post", func(c *gin.Context) {
+
+		id := c.Query("id")
+		page := c.DefaultQuery("page", "0")
+		name := c.PostForm("name")
+		message := c.PostForm("message")
+
+		fmt.Printf("id: %s; page: %s; name: %s; message: %s", id, page, name, message)
+	})
+	
+	err = router.Run(":8080")
+	if err != nil {
+		log.Fatal(err)
+	}
+	
 	// get products
 	req1 := protov1.GetProductsRequest{
 		ProductIds: []int64{},

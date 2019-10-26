@@ -10,6 +10,7 @@ require (
 	github.com/couchbase/gomemcached v0.0.0-20191004160342-7b5da2ec40b2 // indirect
 	github.com/couchbase/goutils v0.0.0-20191018232750-b49639060d85 // indirect
 	github.com/creack/pty v1.1.9 // indirect
+	github.com/gin-gonic/gin v1.4.0
 	github.com/go-redis/redis v6.15.6+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gogo/protobuf v1.3.1 // indirect
