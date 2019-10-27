@@ -102,7 +102,7 @@ func main() {
 	quantities1 := flag.Int64("quantities1", 1, "quantities of valid id 1")
 	quantities2 := flag.Int64("quantities2", 2, "quantities of valid id 2")
 	invalidid := flag.Int64("invalidid", 7, "invalidid")
-	invalidquantities := flag.Int64("invalidquantities", 20, "invalidquantities")
+	invalidquantities := flag.Int64("invalidquantities", 200, "invalidquantities")
 
 	flag.Parse();
 

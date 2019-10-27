@@ -37,7 +37,7 @@ func init() {
 	flag.StringVar(&config.DatastoreDBUser, "db-user", "root", "Database user")
 	flag.StringVar(&config.DatastoreDBPassword, "db-password", "", "Database password")
 	flag.StringVar(&config.DatastoreDBSchema, "db-schema", "golang_manabie", "Database schema")
-	// cfg.GRPCPort = "9090"
+
 	flag.Parse()
 }
 func GetConfig() (cfg ConfigStruct) {
