@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 
-	// "github.com/golang/protobuf/ptypes"
 	"github.com/pkg/errors"
 	"github.com/vctqs1/golang-manabie/pkg/api"
 	"google.golang.org/grpc/codes"
@@ -19,6 +18,16 @@ type productsServiceServer struct {
 }
 
 func NewProductsService(db *sql.DB) protov1.ProductsServiceServer {
+
+	id1 := flag.Int64("id1", 1, "valid id 1")
+	id2 := flag.Int64("id2", 2, "valid id 2")
+	quantities1 := flag.Int64("quantities1", 1, "quantities of valid id 1")
+	quantities2 := flag.Int64("quantities2", 2, "quantities of valid id 2")
+	invalidid := flag.Int64("invalidid", 7, "invalidid")
+	invalidquantities := flag.Int64("invalidquantities", 20, "invalidquantities")
+
+	flag.Parse();
+	
 	return &productsServiceServer{
 		db: db,
 	}
@@ -35,8 +44,6 @@ func (s *productsServiceServer) connect(ctx context.Context) (*sql.Conn, error) 
 
 func arrayToString(a []int64, delim string) string {
 	return strings.Trim(strings.Replace(fmt.Sprint(a), " ", delim, -1), "[]")
-	//return strings.Trim(strings.Join(strings.Split(fmt.Sprint(a), " "), delim), "[]")
-	//return strings.Trim(strings.Join(strings.Fields(fmt.Sprint(a)), delim), "[]")
 }
 
 func (rcv *productsServiceServer) GetProducts(ctx context.Context, req *protov1.GetProductsRequest) (*protov1.GetProductsResponse, error) {

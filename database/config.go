@@ -1,4 +1,5 @@
-package cmd
+package database
+
 
 import (
 	"flag"
@@ -6,11 +7,9 @@ import (
 	"database/sql"
 	"fmt"
 
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	_ "github.com/go-sql-driver/mysql"
-
-	_grpc "github.com/vctqs1/golang-manabie/pkg/protocol/grpc"
-	_services "github.com/vctqs1/golang-manabie/pkg/services"
-	"github.com/vctqs1/golang-manabie/database"
 )
 
 // Config is configuration for Server
@@ -30,10 +29,7 @@ type Config struct {
 	DatastoreDBSchema string
 }
 
-
-
-
-func RunServer() error {
+func connect() (*sql.DB, error) {
 	
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -50,7 +46,7 @@ func RunServer() error {
 	flag.Parse()
 
 	if len(cfg.GRPCPort) == 0 {
-		return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+		return nil, fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
 	}
 	param := "parseTime=true&charset=utf8mb4,utf8"
 
@@ -63,12 +59,24 @@ func RunServer() error {
 		
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return fmt.Errorf("failed to open database: %v", err)
+		return nil, fmt.Errorf("failed to open database: %v", err)
 	}
+	return db, nil;
 	
+}
+func conn() (*sql.Conn, error) {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	db, err := connect();
+	if err != nil {
+		return nil, err;
+	}
+	c, err := db.Conn(ctx)
 
-	v1API := _services.NewProductsService(db)
-
-	return _grpc.RunServer(ctx, v1API, cfg.GRPCPort)
-
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
+	}
+	return c, nil
+	
 }

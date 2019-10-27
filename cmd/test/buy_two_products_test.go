@@ -7,17 +7,22 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"github.com/vctqs1/golang-manabie/pkg/api"
+	"fmt"
 )
 
 
 
-func BuyTwoProduct(address string, arg1, arg2 []*protov1.BuyProduct) error {
+func BuyTwoProduct(address string, arg1, arg2 []*protov1.BuyProduct) (*protov1.BuyProductsResponse, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
-		log.Printf("did not connect: <%+v>\n\n", err)
+		return &protov1.BuyProductsResponse{
+			Successful: false,
+		}, err;
 	}
 	defer conn.Close()
 
@@ -30,23 +35,32 @@ func BuyTwoProduct(address string, arg1, arg2 []*protov1.BuyProduct) error {
 	}, {
 		Products: arg2,
 	}}
-	var message error
+	var message []error;
+	var result []*protov1.BuyProductsResponse;
 	for _, value := range req {
 		res, err := client.BuyProducts(ctx, value)
+
 		if err != nil {
+			message = append(message, err)
 			log.Printf("call 2: failed: <%+v>\n\n", err)
-			message = err
 		} else {
+			result = append(result, res)
 			log.Printf("call 2: buy products:  <%+v>\n\n", res)
 		}
 	}
-
-	return message;
+	if len(result) != 0 {
+		return &protov1.BuyProductsResponse{
+			Successful: false,
+		}, status.Error(codes.Unknown, fmt.Sprintf("buy fail %+v", message));
+	}
+	return &protov1.BuyProductsResponse{
+		Successful: true,
+	}, nil;
 }
 
 
 func TestBuyTwoProducts(t *testing.T) {
-	err := BuyTwoProduct(":9090", []*protov1.BuyProduct{
+	_, err := BuyTwoProduct(":9090", []*protov1.BuyProduct{
 		{
 			ProductId: 6,
 			Quantities: 1,
@@ -64,7 +78,7 @@ func TestBuyTwoProducts(t *testing.T) {
 
 
 func TestBuyInvalidATwoProducts(t *testing.T) {
-	err := BuyTwoProduct(":9090", []*protov1.BuyProduct{{
+	_, err := BuyTwoProduct(":9090", []*protov1.BuyProduct{{
 		ProductId: 6,
 		Quantities: 1,
 		}, 
