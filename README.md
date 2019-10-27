@@ -1,21 +1,21 @@
-## How to run project
+# How to run project
 
 
-# install
+## install
 ```
 make install
 ````
 
-# database
+## database
 copy script /database to create database
 
-# generate proto
+## generate proto
 ```
 sh ./scripts/proto-gen.sh
 ```
 
 
-# how to run server port 9090
+## how to run server port 9090
 go to cmd/sever
 ```
 cd cmd/server
@@ -32,7 +32,7 @@ start - params is optional
 ```
 
 
-# how to run client
+## how to run client
 go to cmd/client
 ```
 cd cmd/client
@@ -49,7 +49,7 @@ start - params is optional
 ```
 
 
-# test
+## test
 ```
 cmd/test
 go test .
