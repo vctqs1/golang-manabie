@@ -41,7 +41,7 @@ func GetConfig() (cfg ConfigStruct) {
 
 	return cfg
 }
-func Connect() (*sql.DB, error) {
+func Connect() (*sql.DB, ConfigStruct, error) {
 	
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -61,24 +61,24 @@ func Connect() (*sql.DB, error) {
 		
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return nil, fmt.Errorf("failed to open database: %v", err)
+		return nil, cfg, fmt.Errorf("failed to open database: %v", err)
 	}
-	return db, nil;
+	return db, cfg, nil;
 	
 }
-func Conn() (*sql.Conn, error) {
+func Conn() (*sql.Conn, ConfigStruct, error) {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	db, err := Connect();
+	db, cfg, err := Connect();
 	if err != nil {
-		return nil, err;
+		return nil, cfg, err;
 	}
 	c, err := db.Conn(ctx)
 
 	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
+		return nil, cfg, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
 	}
-	return c, nil
+	return c, cfg, nil
 	
 }

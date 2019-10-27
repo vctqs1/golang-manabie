@@ -19,20 +19,17 @@ func RunServer() error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	db, err := database.Connect();
+	db, cfg, err := database.Connect();
 	if err != nil {
 		return fmt.Errorf("failed to open database: %v", err)
 	}
 	
-	
-	// cfg := database.GetConfig();
 	v1API := _services.NewProductsService(db)
 
-	// fmt.Printf("PORT %+v\n", cfg)
 	
-	// if len(cfg.GRPCPort) == 0 {
-	// 	return nil, fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
-	// }
-	return _grpc.RunServer(ctx, v1API, "9090")
+	if len(cfg.GRPCPort) == 0 {
+		fmt.Printf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+	}
+	return _grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 
 }
