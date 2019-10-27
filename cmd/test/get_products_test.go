@@ -8,14 +8,18 @@ import (
 
 	"google.golang.org/grpc"
 	"github.com/vctqs1/golang-manabie/pkg/api"
+	"github.com/vctqs1/golang-manabie/database"
 )
 
 
 
-func GetProducts(address string, id []int64) error {
+func GetProducts(id []int64) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+
+	cfg := database.GetConfig()
+
+	conn, err := grpc.Dial(":" + cfg.GRPCPort, grpc.WithInsecure())
 	if err != nil {
 		log.Printf("did not connect: <%+v>\n\n", err)
 	}
@@ -37,8 +41,7 @@ func GetProducts(address string, id []int64) error {
 
 
 func TestGetProducts(t *testing.T) {
-	body := []int64 {1, 2}
-	err := GetProducts(":9090", body)
+	err := GetProducts([]int64 {1, 2})
 	if err != nil {
 		t.Error(err)
 	}

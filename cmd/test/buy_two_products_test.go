@@ -11,14 +11,17 @@ import (
 	"google.golang.org/grpc/status"
 	"github.com/vctqs1/golang-manabie/pkg/api"
 	"fmt"
+
+	"github.com/vctqs1/golang-manabie/database"
 )
 
 
 
-func BuyTwoProduct(address string, arg1, arg2 []*protov1.BuyProduct) (*protov1.BuyProductsResponse, error) {
+func BuyTwoProduct(arg1, arg2 []*protov1.BuyProduct) (*protov1.BuyProductsResponse, error) {
+	cfg := database.GetConfig()
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	conn, err := grpc.Dial(":" + cfg.GRPCPort, grpc.WithInsecure())
 	if err != nil {
 		return &protov1.BuyProductsResponse{
 			Successful: false,
@@ -60,7 +63,7 @@ func BuyTwoProduct(address string, arg1, arg2 []*protov1.BuyProduct) (*protov1.B
 
 
 func TestBuyTwoProducts(t *testing.T) {
-	_, err := BuyTwoProduct(":9090", []*protov1.BuyProduct{
+	_, err := BuyTwoProduct([]*protov1.BuyProduct{
 		{
 			ProductId: 6,
 			Quantities: 1,
@@ -78,7 +81,7 @@ func TestBuyTwoProducts(t *testing.T) {
 
 
 func TestBuyInvalidATwoProducts(t *testing.T) {
-	_, err := BuyTwoProduct(":9090", []*protov1.BuyProduct{{
+	_, err := BuyTwoProduct([]*protov1.BuyProduct{{
 		ProductId: 6,
 		Quantities: 1,
 		}, 
