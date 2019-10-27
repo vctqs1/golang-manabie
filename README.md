@@ -18,7 +18,7 @@ build
 go build .
 ```
 
-#start - params is optional
+start - params is optional
 ```
 ./server -db-host=localhost:3306 -db-user=root -db-password= -db-schema=golang_manabie
 ```
@@ -35,13 +35,13 @@ build
 go build .
 ```
 
-#start - params is optional
+start - params is optional
 ```
 ./client -id1=1 -id2=2 -quantities1=1 -quantities2=2 -invaliid=7 -invalidquantities=111
 ```
 
 
-#test
+# test
 ```
 cmd/test
 go test .
