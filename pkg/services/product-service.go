@@ -18,16 +18,6 @@ type productsServiceServer struct {
 }
 
 func NewProductsService(db *sql.DB) protov1.ProductsServiceServer {
-
-	id1 := flag.Int64("id1", 1, "valid id 1")
-	id2 := flag.Int64("id2", 2, "valid id 2")
-	quantities1 := flag.Int64("quantities1", 1, "quantities of valid id 1")
-	quantities2 := flag.Int64("quantities2", 2, "quantities of valid id 2")
-	invalidid := flag.Int64("invalidid", 7, "invalidid")
-	invalidquantities := flag.Int64("invalidquantities", 20, "invalidquantities")
-
-	flag.Parse();
-	
 	return &productsServiceServer{
 		db: db,
 	}

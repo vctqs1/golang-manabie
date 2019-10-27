@@ -13,7 +13,7 @@ import (
 )
 
 // Config is configuration for Server
-type Config struct {
+type ConfigStruct struct {
 	// gRPC server start parameters section
 	// gRPC is TCP port to listen by gRPC server
 	GRPCPort string
@@ -28,8 +28,20 @@ type Config struct {
 	// DatastoreDBSchema is schema of database
 	DatastoreDBSchema string
 }
+func GetConfig() (cfg ConfigStruct) {
 
-func connect() (*sql.DB, error) {
+	flag.StringVar(&cfg.GRPCPort, "grpc-port", "9090", "gRPC port to bind")
+	flag.StringVar(&cfg.DatastoreDBHost, "db-host", "localhost", "Database host")
+	flag.StringVar(&cfg.DatastoreDBUser, "db-user", "root", "Database user")
+	flag.StringVar(&cfg.DatastoreDBPassword, "db-password", "", "Database password")
+	flag.StringVar(&cfg.DatastoreDBSchema, "db-schema", "golang_manabie", "Database schema")
+	// cfg.GRPCPort = "9090"
+	flag.Parse()
+
+
+	return cfg
+}
+func Connect() (*sql.DB, error) {
 	
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -37,17 +49,7 @@ func connect() (*sql.DB, error) {
 
 
 	// get configuration
-	var cfg Config
-	flag.StringVar(&cfg.GRPCPort, "grpc-port", ":9090", "gRPC port to bind")
-	flag.StringVar(&cfg.DatastoreDBHost, "db-host", "localhost", "Database host")
-	flag.StringVar(&cfg.DatastoreDBUser, "db-user", "root", "Database user")
-	flag.StringVar(&cfg.DatastoreDBPassword, "db-password", "", "Database password")
-	flag.StringVar(&cfg.DatastoreDBSchema, "db-schema", "golang_manabie", "Database schema")
-	flag.Parse()
-
-	if len(cfg.GRPCPort) == 0 {
-		return nil, fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
-	}
+	cfg := GetConfig()
 	param := "parseTime=true&charset=utf8mb4,utf8"
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?%s",
@@ -64,11 +66,11 @@ func connect() (*sql.DB, error) {
 	return db, nil;
 	
 }
-func conn() (*sql.Conn, error) {
+func Conn() (*sql.Conn, error) {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	db, err := connect();
+	db, err := Connect();
 	if err != nil {
 		return nil, err;
 	}
