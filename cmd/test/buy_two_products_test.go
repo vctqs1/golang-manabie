@@ -28,7 +28,7 @@ func BuyTwoProduct(address string, arg1, arg2 []*protov1.BuyProduct) (*protov1.B
 
 	client := protov1.NewProductsServiceClient(conn)
 
-	// get products
+	// buy products
 	
 	req := []*protov1.BuyProductsRequest{{
 		Products: arg1,
