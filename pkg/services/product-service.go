@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/status"
 
 
-	"github.com/vctqs1/golang-manabie/database"
+	// "github.com/vctqs1/golang-manabie/database"
 )
 
 type productsServiceServer struct {
@@ -21,7 +21,6 @@ type productsServiceServer struct {
 }
 
 func NewProductsService(db *sql.DB) protov1.ProductsServiceServer {
-	_ = database.Connect()
 	return &productsServiceServer{
 		db: db,
 	}

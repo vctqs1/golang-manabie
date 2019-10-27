@@ -28,20 +28,23 @@ type ConfigStruct struct {
 	// DatastoreDBSchema is schema of database
 	DatastoreDBSchema string
 }
-func GetConfig() (cfg ConfigStruct) {
+var config ConfigStruct;
 
-	flag.StringVar(&cfg.GRPCPort, "grpc-port", "9090", "gRPC port to bind")
-	flag.StringVar(&cfg.DatastoreDBHost, "db-host", "localhost", "Database host")
-	flag.StringVar(&cfg.DatastoreDBUser, "db-user", "root", "Database user")
-	flag.StringVar(&cfg.DatastoreDBPassword, "db-password", "", "Database password")
-	flag.StringVar(&cfg.DatastoreDBSchema, "db-schema", "golang_manabie", "Database schema")
+func init() {
+
+	flag.StringVar(&config.GRPCPort, "grpc-port", "9090", "gRPC port to bind")
+	flag.StringVar(&config.DatastoreDBHost, "db-host", "localhost", "Database host")
+	flag.StringVar(&config.DatastoreDBUser, "db-user", "root", "Database user")
+	flag.StringVar(&config.DatastoreDBPassword, "db-password", "", "Database password")
+	flag.StringVar(&config.DatastoreDBSchema, "db-schema", "golang_manabie", "Database schema")
 	// cfg.GRPCPort = "9090"
 	flag.Parse()
-
-
-	return cfg
 }
-func Connect() (*sql.DB, ConfigStruct, error) {
+func GetConfig() (cfg ConfigStruct) {
+	cfg = config;
+	return cfg;
+}
+func Connect() (*sql.DB, error) {
 	
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -61,24 +64,24 @@ func Connect() (*sql.DB, ConfigStruct, error) {
 		
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return nil, cfg, fmt.Errorf("failed to open database: %v", err)
+		return nil, fmt.Errorf("failed to open database: %v", err)
 	}
-	return db, cfg, nil;
+	return db, nil;
 	
 }
-func Conn() (*sql.Conn, ConfigStruct, error) {
+func Conn() (*sql.Conn, error) {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	db, cfg, err := Connect();
+	db, err := Connect();
 	if err != nil {
-		return nil, cfg, err;
+		return nil, err;
 	}
 	c, err := db.Conn(ctx)
 
 	if err != nil {
-		return nil, cfg, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
+		return nil, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
 	}
-	return c, cfg, nil
+	return c, nil
 	
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f66d8c2-ed28-4b39-9e97-e0d4d5e21f98" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/server/server" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/server" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/cmd/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/cmd/server.go" afterDir="false" />
@@ -53,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="281">
-              <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+              <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
               <folding>
                 <element signature="e#17#262#0" expanded="true" />
               </folding>
@@ -209,15 +210,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build product-service.go">
-    <configuration name="go build config.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="golang-manabie" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/database/config.go" />
-      <directory value="$PROJECT_DIR$/" />
-    </configuration>
+  <component name="RunManager" selected="Go Test.get_products_test.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-manabie" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -242,29 +235,38 @@
       <filePath value="$PROJECT_DIR$/pkg/cmd/server.go" />
       <directory value="$PROJECT_DIR$/" />
     </configuration>
-    <configuration name="buy_two_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="buy_a_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="golang-manabie" />
       <working_directory value="$PROJECT_DIR$/cmd/test" />
       <go_parameters value="-i" />
       <framework value="gotest" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/cmd/test/buy_two_products_test.go" />
+      <filePath value="$PROJECT_DIR$/cmd/test/buy_a_products_test.go" />
+    </configuration>
+    <configuration name="get_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="golang-manabie" />
+      <working_directory value="$PROJECT_DIR$/cmd/test" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/cmd/test/get_products_test.go" />
     </configuration>
     <list>
-      <item itemvalue="Go Test.buy_two_products_test.go" />
       <item itemvalue="Go Build.go build server.go" />
       <item itemvalue="Go Build.go build main.go" />
-      <item itemvalue="Go Build.go build config.go" />
       <item itemvalue="Go Build.go build product-service.go" />
+      <item itemvalue="Go Test.buy_a_products_test.go" />
+      <item itemvalue="Go Test.get_products_test.go" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.get_products_test.go" />
+        <item itemvalue="Go Test.buy_a_products_test.go" />
         <item itemvalue="Go Build.go build product-service.go" />
         <item itemvalue="Go Build.go build server.go" />
         <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Build.go build config.go" />
-        <item itemvalue="Go Test.buy_two_products_test.go" />
       </list>
     </recent_temporary>
   </component>
@@ -301,13 +303,13 @@
     <frame x="10" y="43" width="1214" height="737" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958813" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24958813" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32880846" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32880846" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -515,7 +517,7 @@
     <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
-          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
           <folding>
             <element signature="e#17#262#0" expanded="true" />
           </folding>
