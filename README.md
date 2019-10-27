@@ -1,3 +1,11 @@
+## How to run project
+
+
+# install
+```
+make install
+````
+
 # database
 copy script /database to create database
 
