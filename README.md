@@ -6,9 +6,6 @@
 make install
 ````
 
-## database
-copy script /database to create database
-
 ## generate proto
 ```
 sh ./scripts/proto-gen.sh
@@ -51,6 +48,6 @@ start - params is optional
 
 ## test
 ```
-cmd/test
+cmd/test or cmd/integrate
 go test .
 ```
