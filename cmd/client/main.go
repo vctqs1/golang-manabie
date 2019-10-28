@@ -6,6 +6,7 @@ import (
 	"flag"
 	"log"
 	"time"
+	"sync"
 
 	"google.golang.org/grpc"
 
@@ -67,7 +68,7 @@ type ProductResponse struct {
 	Res *protov1.BuyProductsResponse
 	Err error
 }
-func BuyAProductOfConcurent(address string, arg []*protov1.BuyProduct) ProductResponse {
+func BuyAProductOfConcurent(address string, arg1, arg2 []*protov1.BuyProduct) []ProductResponse {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
@@ -80,18 +81,33 @@ func BuyAProductOfConcurent(address string, arg []*protov1.BuyProduct) ProductRe
 
 	client := protov1.NewProductsServiceClient(conn)
 
-	out := make (chan ProductResponse)
+
+	var wg sync.WaitGroup
+
+	wg.Add(2)
+
+	res := make([]ProductResponse, 0)
+	
 
 	go func() {
-
-		res, err := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
-			Products: arg,
+		res1, err1 := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
+			Products: arg1,
 		});
+		res = append(res, ProductResponse{res1, err1})
+		wg.Done()
 
-		out <- ProductResponse{res, err}
 	}()
 
-	return <- out
+	go func() {
+		res2, err2 := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
+			Products: arg2,
+		});
+		res = append(res, ProductResponse{res2, err2})
+		wg.Done()
+
+	}()
+	wg.Wait()
+	return res
 
 }
 
@@ -99,9 +115,7 @@ func BuyAProductOfConcurent(address string, arg []*protov1.BuyProduct) ProductRe
 func BuyConcurentProductRoutine(address string, arg1, arg2 []*protov1.BuyProduct) (bool, error) {
 
 
-	responses := make([]ProductResponse, 2)
-	responses[0] = BuyAProductOfConcurent(address, arg1)
-	responses[1] = BuyAProductOfConcurent(address, arg2)
+	responses := BuyAProductOfConcurent(address, arg1, arg2)
 
 	success := 0;
 	res := make([] ProductResponse, 0, 2)
@@ -127,7 +141,6 @@ func BuyConcurentProductRoutine(address string, arg1, arg2 []*protov1.BuyProduct
 			return true, fmt.Errorf("%+v", message);
 
 		}
-
 	} else {
 		return false, fmt.Errorf("%+v", message);
 	}
@@ -136,7 +149,6 @@ func BuyConcurentProductRoutine(address string, arg1, arg2 []*protov1.BuyProduct
 func Ex3(address string, arg1, arg2 []*protov1.BuyProduct) error {
 
 	_, err := BuyConcurentProductRoutine(address, arg1, arg2)
-
 	return err;
 }
 
@@ -188,7 +200,7 @@ func main() {
 	})
 	
 	//example 3
-	Ex3(*address, []*protov1.BuyProduct{
+	err = Ex3(*address, []*protov1.BuyProduct{
 		{
 			ProductId: *id1,
 			Quantities: *quantities1,
@@ -199,9 +211,9 @@ func main() {
 			Quantities: *quantities2,
 		}, 
 	});
-
+	fmt.Printf("Buy concurent valid mess: %v\n", err)
 	//example 4
-	Ex3(*address, []*protov1.BuyProduct{
+	err = Ex3(*address, []*protov1.BuyProduct{
 		{
 			ProductId: *id1,
 			Quantities: *quantities1,
@@ -212,6 +224,7 @@ func main() {
 			Quantities: *invalidquantities,
 		}, 
 	});
+	fmt.Printf("Buy concurent invalid mess: %v\n", err)
 
 	
 }

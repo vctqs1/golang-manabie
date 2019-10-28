@@ -6,6 +6,7 @@ import (
 	"log"
 	"fmt"
 	"time"
+	"sync"
 
 	"google.golang.org/grpc"
 
@@ -17,7 +18,7 @@ type ProductResponse struct {
 	Res *protov1.BuyProductsResponse
 	Err error
 }
-func BuyAProductOfConcurent(arg []*protov1.BuyProduct) ProductResponse {
+func BuyAProductOfConcurent(arg1, arg2 []*protov1.BuyProduct) []ProductResponse {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	cfg := database.GetConfig()
@@ -30,28 +31,43 @@ func BuyAProductOfConcurent(arg []*protov1.BuyProduct) ProductResponse {
 
 	client := protov1.NewProductsServiceClient(conn)
 
-	out := make (chan ProductResponse)
+	
+
+	var wg sync.WaitGroup
+
+	wg.Add(2)
+
+	res := make([]ProductResponse, 0)
+	
 
 	go func() {
-
-		res, err := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
-			Products: arg,
+		fmt.Printf("call 1\n")
+		res1, err1 := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
+			Products: arg1,
 		});
+		res = append(res, ProductResponse{res1, err1})
+		wg.Done()
 
-		out <- ProductResponse{res, err}
 	}()
 
-	return <- out
+	go func() {
+		fmt.Printf("call 2\n")
+		res2, err2 := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
+			Products: arg2,
+		});
+		res = append(res, ProductResponse{res2, err2})
+		wg.Done()
+
+	}()
+	wg.Wait()
+	return res
 
 }
 
 
 func BuyConcurentProduct(arg1, arg2 []*protov1.BuyProduct) (bool, error) {
 
-
-	responses := make([]ProductResponse, 2)
-	responses[0] = BuyAProductOfConcurent(arg1)
-	responses[1] = BuyAProductOfConcurent(arg2)
+	responses := BuyAProductOfConcurent(arg1, arg2)
 
 	success := 0;
 	res := make([] ProductResponse, 0, 2)

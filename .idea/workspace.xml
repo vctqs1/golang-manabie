@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="6f66d8c2-ed28-4b39-9e97-e0d4d5e21f98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/client" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/client" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/server" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/services/productService.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/services/productService.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,29 +20,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="buy_concurent_products_test.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
+      <file leaf-file-name="buy_concurent_products_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-352">
-              <caret line="62" column="31" selection-start-line="62" selection-start-column="31" selection-end-line="62" selection-end-column="31" />
+            <state relative-caret-position="580">
+              <caret line="135" column="12" selection-start-line="135" selection-start-column="12" selection-end-line="135" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmd/client/main.go">
+      <file leaf-file-name="buy_a_products_test.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="151" column="54" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="get_products_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmd/unit/get_products_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="33" column="14" lean-forward="true" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
+            <state relative-caret-position="300">
+              <caret line="63" column="19" lean-forward="true" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -73,10 +71,10 @@
         <option value="$PROJECT_DIR$/cmd/test/get_products_test.go" />
         <option value="$PROJECT_DIR$/pkg/services/productService.go" />
         <option value="$PROJECT_DIR$/cmd/integrate/get_products_test.go" />
-        <option value="$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go" />
         <option value="$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go" />
-        <option value="$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go" />
         <option value="$PROJECT_DIR$/cmd/client/main.go" />
+        <option value="$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go" />
+        <option value="$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go" />
       </list>
     </option>
   </component>
@@ -89,11 +87,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="9" />
-    <option name="y" value="41" />
-    <option name="width" value="1216" />
-    <option name="height" value="741" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1234" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectId" id="1SYFVLVfmH5v1MPbi9Z5AXmamtZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -208,7 +205,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.buy_concurent_products_test.go">
+  <component name="RunManager" selected="Go Test.buy_a_products_test.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-manabie" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -262,48 +259,48 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.buy_a_products_test.go" />
+        <item itemvalue="Go Test.buy_concurent_products_test.go (1)" />
         <item itemvalue="Go Test.buy_concurent_products_test.go" />
         <item itemvalue="Go Test.get_products_test.go (1)" />
         <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Test.buy_concurent_products_test.go (1)" />
-        <item itemvalue="Go Test.buy_a_products_test.go" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 18h 43m 02s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 22h 59m 01s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 18h 47m 23s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 22h 59m 17s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 19h 51m 37s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_a_products_test_go - 2019.10.28 at 22h 59m 31s.xml">
+      <configuration name="buy_a_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 20h 10m 03s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 00m 49s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 20h 28m 41s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 02m 26s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 20h 30m 03s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 02m 42s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 20h 30m 18s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 03m 52s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 20h 30m 28s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 06m 16s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.28 at 20h 30m 52s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 09m 11s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 20h 31m 05s.xml">
-      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go_(1) - 2019.10.28 at 23h 10m 27s.xml">
+      <configuration name="buy_concurent_products_test.go (1)" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1234" height="777" extended-state="6" />
+    <frame x="0" y="23" width="1234" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24878444" />
@@ -311,12 +308,12 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5115321" side_tool="true" weight="0.32880846" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48846787" weight="0.31009957" />
       <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48846787" visible="true" weight="0.31009957" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49917626" weight="0.39969835" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49917626" weight="0.39969835" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -360,12 +357,10 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go</url>
-          <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go</url>
-          <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -373,6 +368,30 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="62" column="31" selection-start-line="62" selection-start-column="31" selection-end-line="62" selection-end-column="31" />
+          <folding>
+            <element signature="e#15#299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/client/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2265">
+          <caret line="151" column="54" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/unit/get_products_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="14" lean-forward="true" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1245">
@@ -470,20 +489,6 @@
     <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go" />
     <entry file="file://$PROJECT_DIR$/cmd/test/buy_a_products_test.go" />
     <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go" />
-    <entry file="file://$PROJECT_DIR$/pkg/services/productService.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="39" column="1" lean-forward="true" selection-start-line="36" selection-end-line="39" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/unit/buy_a_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="49" column="19" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmd/integrate/get_products_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -491,41 +496,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="32" column="34" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="83" column="1" lean-forward="true" selection-start-line="14" selection-end-line="83" selection-end-column="1" />
-          <folding>
-            <element signature="e#15#251#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmd/client/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="2115">
           <caret line="151" column="54" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmd/unit/get_products_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="33" column="14" lean-forward="true" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
+        <state relative-caret-position="360">
+          <caret line="33" column="14" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352">
-          <caret line="62" column="31" selection-start-line="62" selection-start-column="31" selection-end-line="62" selection-end-column="31" />
+        <state relative-caret-position="405">
+          <caret line="137" column="1" lean-forward="true" selection-start-line="121" selection-start-column="20" selection-end-line="137" selection-end-column="1" />
+          <folding>
+            <element signature="e#15#299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/api/product.pb.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/unit/buy_a_products_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="49" column="19" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/services/productService.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-549">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="135" column="12" selection-start-line="135" selection-start-column="12" selection-end-line="135" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/integrate/buy_a_products_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="63" column="19" lean-forward="true" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="19" />
         </state>
       </provider>
     </entry>

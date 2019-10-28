@@ -124,7 +124,7 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 			}
 			return &protov1.BuyProductsResponse{
 				Successful: false,
-			}, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.ProductId))
+			}, status.Error(codes.NotFound, fmt.Sprintf("select product with id=%d with quantities=%d is not found", value.ProductId, value.Quantities))
 		}
 
 		err = rows.Scan(&e.Id, &e.Title, &e.Quantities)
@@ -135,7 +135,8 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 		}
 
 		e.Quantities = e.Quantities - value.Quantities
-
+		fmt.Printf("Quanties Old: %d\n",value.Quantities)
+		fmt.Printf("Quanties News: %d\n",e.Quantities)
 		products = append(products, e)
 
 	}
@@ -148,9 +149,10 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 
 	now := time.Now().UTC().Format("2006-01-02 03:04:05")
 	fmt.Printf(now)
-	for _, value := range products {
+	for i, value := range products {
+		
 		// query := fmt.Sprintf("UPDATE products SET `quantities` = %d, `updated_at` = %s WHERE `id` = %d;", value.Quantities, now, value.Id);
-		res, err := db.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `quantities` >= ? AND `id` = ?;", value.Quantities, now, value.Quantities, value.Id)
+		res, err := db.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `quantities` >= ? AND `id` = ?;", value.Quantities, now, req.Products[i].Quantities, value.Id)
 
 		if err != nil {
 			return &protov1.BuyProductsResponse{
@@ -169,7 +171,7 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 		if row == 0 {
 			return &protov1.BuyProductsResponse{
 				Successful: false,
-			}, status.Error(codes.NotFound, fmt.Sprintf("product with id=%d is not found", value.Id))
+			}, status.Error(codes.NotFound, fmt.Sprintf("update product with id=%d with quantities=%d is not found, req quantities %d", value.Id, value.Quantities, req.Products[i].Quantities))
 		}
 
 	}

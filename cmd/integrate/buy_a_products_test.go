@@ -45,7 +45,7 @@ func BuyAProduct(arg []*protov1.BuyProduct) error {
 func TestBuyAProducts(t *testing.T) {
 	err := BuyAProduct([]*protov1.BuyProduct{
 		{
-			ProductId: 6,
+			ProductId: 5,
 			Quantities: 1,
 		}, 
 	})
