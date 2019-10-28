@@ -28,7 +28,7 @@ go build .
 
 start - params is optional
 ```
-./server -grpc-port=9090 -db-host=localhost:3306 -db-user=root -db-password= -db-schema=golang_manabie
+./server -grpc-port=9090
 ```
 
 
@@ -45,7 +45,7 @@ go build .
 
 start - params is optional
 ```
-./client -server=localhost:9090 -id1=1 -id2=2 -quantities1=1 -quantities2=2 -invaliid=7 -invalidquantities=111
+./client -server=localhost:9090 -id1=1 -id2=2 -quantities1=1 -quantities2=2 -invalidid=7 -invalidquantities=111
 ```
 
 

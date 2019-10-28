@@ -14,29 +14,14 @@ import (
 
 // Config is configuration for Server
 type ConfigStruct struct {
-	// gRPC server start parameters section
-	// gRPC is TCP port to listen by gRPC server
 	GRPCPort string
 
-	// DB Datastore parameters section
-	// DatastoreDBHost is host of database
-	DatastoreDBHost string
-	// DatastoreDBUser is username to connect to database
-	DatastoreDBUser string
-	// DatastoreDBPassword password to connect to database
-	DatastoreDBPassword string
-	// DatastoreDBSchema is schema of database
-	DatastoreDBSchema string
 }
 var config ConfigStruct;
 
 func init() {
 
 	flag.StringVar(&config.GRPCPort, "grpc-port", "9090", "gRPC port to bind")
-	flag.StringVar(&config.DatastoreDBHost, "db-host", "localhost", "Database host")
-	flag.StringVar(&config.DatastoreDBUser, "db-user", "root", "Database user")
-	flag.StringVar(&config.DatastoreDBPassword, "db-password", "", "Database password")
-	flag.StringVar(&config.DatastoreDBSchema, "db-schema", "golang_manabie", "Database schema")
 
 	flag.Parse()
 }
@@ -49,20 +34,8 @@ func Connect() (*sql.DB, error) {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-
-
-	// get configuration
-	cfg := GetConfig()
-	param := "parseTime=true&charset=utf8mb4,utf8"
-
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?%s",
-		cfg.DatastoreDBUser,
-		cfg.DatastoreDBPassword,
-		cfg.DatastoreDBHost,
-		cfg.DatastoreDBSchema,
-		param)
-		
-	db, err := sql.Open("mysql", dsn)
+	
+	db, err := sql.Open("mysql", "root:golang@tcp(localhost:3333)/golang_manabie?parseTime=true&charset=utf8mb4,utf8")
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %v", err)
 	}

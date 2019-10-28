@@ -30,7 +30,6 @@ func BuyAProductOfConcurent(arg []*protov1.BuyProduct) ProductResponse {
 
 	client := protov1.NewProductsServiceClient(conn)
 
-
 	out := make (chan ProductResponse)
 
 	go func() {
@@ -60,7 +59,7 @@ func BuyConcurentProduct(arg1, arg2 []*protov1.BuyProduct) (bool, error) {
 
 	for _, value := range responses {
 
-		if value.Res.Successful == true {
+		if value.Res != nil && value.Res.Successful == true {
 			success = success + 1
 		} else if value.Err != nil {
 			message = append(message, value.Err)

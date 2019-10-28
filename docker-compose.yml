@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db_manabie:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: golang
+      MYSQL_USER: root
+      MYSQL_PASSWORD: golang
+      MYSQL_DATABASE: golang_manabie
+    container_name: db_manabie
+    restart: always
+    # build:
+    #   context: ./database
+    # command: --init-file /docker-entrypoint-initdb.d/*.sql
+    volumes:
+        - mysql-db:/var/lib/mysql
+        - ./database/init:/docker-entrypoint-initdb.d
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - "3333:3306"
+      
+volumes:
+  mysql-db:

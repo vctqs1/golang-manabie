@@ -30,8 +30,9 @@ func Ex1(address string, id []int64) error {
 	res, err := client.GetProducts(ctx, &req)
 	if err != nil {
 		log.Printf("get products failed: <%+v>\n\n", err)
+	} else {
+		log.Printf("get products result: <%+v>\n\n", res)
 	}
-	log.Printf("get products result: <%+v>\n\n", res)
 	return err
 }
 
@@ -54,17 +55,23 @@ func Ex2(address string, arg []*protov1.BuyProduct) error {
 	res, err := client.BuyProducts(ctx, &req)
 	if err != nil {
 		log.Printf("buy products failed: <%+v>\n\n", err)
+	} else {
+		log.Printf("buy products result: <%+v>\n\n", res)
 	}
-	log.Printf("buy products result: <%+v>\n\n", res)
 	return err
 }
 
 
 
-
-func Ex3(address string, arg1, arg2 []*protov1.BuyProduct) error {
+type ProductResponse struct {
+	Res *protov1.BuyProductsResponse
+	Err error
+}
+func BuyAProductOfConcurent(address string, arg []*protov1.BuyProduct) ProductResponse {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
+
+
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
 		log.Printf("did not connect: <%+v>\n\n", err)
@@ -73,24 +80,64 @@ func Ex3(address string, arg1, arg2 []*protov1.BuyProduct) error {
 
 	client := protov1.NewProductsServiceClient(conn)
 
-	// get products
-	
-	req := []*protov1.BuyProductsRequest{{
-		Products: arg1,
-	}, {
-		Products: arg2,
-	}}
-	var message error
-	for _, value := range req {
-		res, err := client.BuyProducts(ctx, value)
-		if err != nil {
-			log.Printf("call 2: failed: <%+v>\n\n", err)
-			message = err
+	out := make (chan ProductResponse)
+
+	go func() {
+
+		res, err := client.BuyProducts(ctx, &protov1.BuyProductsRequest{
+			Products: arg,
+		});
+
+		out <- ProductResponse{res, err}
+	}()
+
+	return <- out
+
+}
+
+
+func BuyConcurentProductRoutine(address string, arg1, arg2 []*protov1.BuyProduct) (bool, error) {
+
+
+	responses := make([]ProductResponse, 2)
+	responses[0] = BuyAProductOfConcurent(address, arg1)
+	responses[1] = BuyAProductOfConcurent(address, arg2)
+
+	success := 0;
+	res := make([] ProductResponse, 0, 2)
+	message := make([] error, 0, 2)
+
+	for _, value := range responses {
+
+		if value.Res != nil && value.Res.Successful == true {
+			success = success + 1
+		} else if value.Err != nil {
+			message = append(message, value.Err)
+
 		}
-		log.Printf("call 2: buy products:  <%+v>\n\n", res)
+
+		res = append(res, value)
 	}
 
-	return message;
+	if success > 0 {
+		if success == 2 {
+			return true, nil;
+
+		} else {
+			return true, fmt.Errorf("%+v", message);
+
+		}
+
+	} else {
+		return false, fmt.Errorf("%+v", message);
+	}
+}
+
+func Ex3(address string, arg1, arg2 []*protov1.BuyProduct) error {
+
+	_, err := BuyConcurentProductRoutine(address, arg1, arg2)
+
+	return err;
 }
 
 

@@ -26,7 +26,7 @@ func BuyAProduct(arg []*protov1.BuyProduct) error {
 
 	client := protov1.NewProductsServiceClient(conn)
 
-	// get products
+	// buy products
 	req := protov1.BuyProductsRequest{
 		Products: arg,
 	}
