@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6f66d8c2-ed28-4b39-9e97-e0d4d5e21f98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/client/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/client/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/test/get_products_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/test/get_products_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/test/buy_a_products_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/test/buy_two_products_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/test/get_products_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/services/productService.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/services/productService.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,19 +17,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="get_products_test.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go">
+      <file leaf-file-name="buy_concurent_products_test.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-155">
-              <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
+            <state relative-caret-position="136">
+              <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="productService.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/services/productService.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1" />
           </provider>
         </entry>
       </file>
@@ -38,7 +31,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>address</find>
+      <find>quantities</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.12.7/libexec" />
   <component name="Git.Settings">
@@ -57,6 +54,8 @@
         <option value="$PROJECT_DIR$/pkg/services/product-service.go" />
         <option value="$PROJECT_DIR$/cmd/test/buy_a_products_test.go" />
         <option value="$PROJECT_DIR$/cmd/test/get_products_test.go" />
+        <option value="$PROJECT_DIR$/pkg/services/productService.go" />
+        <option value="$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go" />
       </list>
     </option>
   </component>
@@ -69,11 +68,11 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="10" />
-    <option name="y" value="43" />
-    <option name="width" value="1214" />
-    <option name="height" value="737" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="9" />
+    <option name="y" value="41" />
+    <option name="width" value="1216" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectId" id="1SYFVLVfmH5v1MPbi9Z5AXmamtZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -82,7 +81,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -111,7 +109,7 @@
               <item name="golang-manabie" type="b2602c69:ProjectViewProjectNode" />
               <item name="golang-manabie" type="462c0819:PsiDirectoryNode" />
               <item name="cmd" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="unit" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="golang-manabie" type="b2602c69:ProjectViewProjectNode" />
@@ -149,10 +147,17 @@
               <item name="pkg" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="golang-manabie" type="b2602c69:ProjectViewProjectNode" />
+              <item name="golang-manabie" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -176,40 +181,42 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.get_products_test.go">
-    <configuration name="go build product-service.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.buy_concurent_products_test.go (1)">
+    <configuration name="buy_a_products_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="golang-manabie" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/pkg/services/product-service.go" />
-      <directory value="$PROJECT_DIR$/" />
-    </configuration>
-    <configuration name="go build server.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="golang-manabie" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/pkg/cmd/server.go" />
-      <directory value="$PROJECT_DIR$/" />
-    </configuration>
-    <configuration name="buy_a_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="golang-manabie" />
-      <working_directory value="$PROJECT_DIR$/cmd/test" />
+      <working_directory value="$PROJECT_DIR$/cmd/unit" />
       <go_parameters value="-i" />
       <framework value="gotest" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/cmd/test/buy_a_products_test.go" />
+      <filePath value="$PROJECT_DIR$/cmd/unit/buy_a_products_test.go" />
     </configuration>
-    <configuration name="buy_two_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="buy_concurent_products_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="golang-manabie" />
-      <working_directory value="$PROJECT_DIR$/cmd/test" />
+      <working_directory value="$PROJECT_DIR$/cmd/integrate" />
       <go_parameters value="-i" />
       <framework value="gotest" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/cmd/test/buy_two_products_test.go" />
+      <filePath value="$PROJECT_DIR$/cmd/integrate/buy_concurent_products_test.go" />
+    </configuration>
+    <configuration name="buy_concurent_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="golang-manabie" />
+      <working_directory value="$PROJECT_DIR$/cmd/unit" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go" />
+    </configuration>
+    <configuration name="get_products_test.go (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="golang-manabie" />
+      <working_directory value="$PROJECT_DIR$/cmd/unit" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/cmd/unit/get_products_test.go" />
     </configuration>
     <configuration name="get_products_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="golang-manabie" />
@@ -221,69 +228,69 @@
       <filePath value="$PROJECT_DIR$/cmd/test/get_products_test.go" />
     </configuration>
     <list>
-      <item itemvalue="Go Build.go build server.go" />
-      <item itemvalue="Go Build.go build product-service.go" />
-      <item itemvalue="Go Test.buy_a_products_test.go" />
       <item itemvalue="Go Test.get_products_test.go" />
-      <item itemvalue="Go Test.buy_two_products_test.go" />
+      <item itemvalue="Go Test.buy_concurent_products_test.go" />
+      <item itemvalue="Go Test.get_products_test.go (1)" />
+      <item itemvalue="Go Test.buy_a_products_test.go (1)" />
+      <item itemvalue="Go Test.buy_concurent_products_test.go (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.buy_concurent_products_test.go (1)" />
+        <item itemvalue="Go Test.buy_concurent_products_test.go" />
+        <item itemvalue="Go Test.buy_a_products_test.go (1)" />
+        <item itemvalue="Go Test.get_products_test.go (1)" />
         <item itemvalue="Go Test.get_products_test.go" />
-        <item itemvalue="Go Test.buy_a_products_test.go" />
-        <item itemvalue="Go Test.buy_two_products_test.go" />
-        <item itemvalue="Go Build.go build product-service.go" />
-        <item itemvalue="Go Build.go build server.go" />
       </list>
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="get_products_test_go_(1) - 2019.10.26 at 17h 29m 39s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 17h 57m 25s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="buy_a_products_test_go - 2019.10.26 at 17h 32m 14s.xml">
-      <configuration name="buy_a_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 17h 57m 38s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="buy_a_products_test_go - 2019.10.26 at 17h 32m 37s.xml">
-      <configuration name="buy_a_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 17h 58m 03s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBuyAProducts_in_buy_a_products_test_go - 2019.10.26 at 17h 35m 01s.xml">
-      <configuration name="TestBuyAProducts in buy_a_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 17h 58m 50s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.26 at 17h 35m 12s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 18h 00m 21s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go_(1) - 2019.10.26 at 22h 29m 43s.xml">
-      <configuration name="get_products_test.go (1)" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 18h 01m 50s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="buy_two_products_test_go - 2019.10.27 at 09h 33m 49s.xml">
-      <configuration name="buy_two_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 18h 02m 17s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="buy_a_products_test_go - 2019.10.27 at 11h 18m 42s.xml">
-      <configuration name="buy_a_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 18h 02m 40s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="get_products_test_go - 2019.10.27 at 11h 18m 53s.xml">
-      <configuration name="get_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 18h 03m 05s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="buy_two_products_test_go - 2019.10.27 at 12h 37m 53s.xml">
-      <configuration name="buy_two_products_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="buy_concurent_products_test_go - 2019.10.28 at 18h 03m 22s.xml">
+      <configuration name="buy_concurent_products_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="43" width="1214" height="737" extended-state="0" />
+    <frame x="0" y="23" width="1234" height="777" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24958813" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.24958813" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5016475" side_tool="true" visible="true" weight="0.32880846" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5115321" side_tool="true" weight="0.32880846" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48846787" visible="true" weight="0.31009957" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49835256" visible="true" weight="0.32880846" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49917626" weight="0.39969835" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39969835" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -293,24 +300,24 @@
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.24958813" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.32880846" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
-      <window_info anchor="right" id="Database" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="3" />
-      <window_info anchor="bottom" id="Find" order="5" />
-      <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.48846787" visible="true" weight="0.32880846" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958813" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49917626" weight="0.39969835" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5115321" side_tool="true" visible="true" weight="0.32880846" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,24 +351,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmd/test/buy_two_products_test.go">
+    <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="70" selection-start-line="17" selection-start-column="70" selection-end-line="17" selection-end-column="70" />
+        <state relative-caret-position="1245">
+          <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go" />
+    <entry file="file://$PROJECT_DIR$/pkg/services/productService.go">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/test/buy_two_products_test.go" />
+    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go" />
     <entry file="file://$PROJECT_DIR$/pkg/cmd/server.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
@@ -376,13 +382,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go" />
     <entry file="file://$PROJECT_DIR$/pkg/cmd/server.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
@@ -393,13 +393,7 @@
     <entry file="file://$PROJECT_DIR$/pkg/protocol/grpc/server.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="41" column="45" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go" />
     <entry file="file://$PROJECT_DIR$/cmd/server/main.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -412,13 +406,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmd/test_unit/products_test.go" />
-    <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="41" column="45" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go" />
     <entry file="file://$PROJECT_DIR$/cmd/server/main.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -445,13 +433,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/test/buy_two_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="19" column="70" selection-start-line="19" selection-start-column="70" selection-end-line="19" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/test/buy_two_products_test.go" />
     <entry file="file://$PROJECT_DIR$/pkg/cmd/server.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
@@ -470,32 +452,27 @@
     <entry file="file://$PROJECT_DIR$/cmd/server/main.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="29" column="30" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="30" />
-          <folding>
-            <element signature="e#17#265#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/test/buy_a_products_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="25" selection-start-line="8" selection-start-column="24" selection-end-line="9" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/services/product-service.go" />
+    <entry file="file://$PROJECT_DIR$/cmd/test/buy_a_products_test.go" />
+    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go" />
     <entry file="file://$PROJECT_DIR$/pkg/services/productService.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1" />
+        <state relative-caret-position="279">
+          <caret line="39" column="1" lean-forward="true" selection-start-line="36" selection-end-line="39" selection-end-column="1" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmd/test/get_products_test.go">
+    <entry file="file://$PROJECT_DIR$/cmd/unit/buy_a_products_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-155">
-          <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
+        <state relative-caret-position="470">
+          <caret line="49" column="19" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmd/unit/buy_concurent_products_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
         </state>
       </provider>
     </entry>

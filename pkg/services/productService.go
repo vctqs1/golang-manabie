@@ -150,8 +150,7 @@ func (rcv *productsServiceServer) BuyProducts(ctx context.Context, req *protov1.
 	fmt.Printf(now)
 	for _, value := range products {
 		// query := fmt.Sprintf("UPDATE products SET `quantities` = %d, `updated_at` = %s WHERE `id` = %d;", value.Quantities, now, value.Id);
-
-		res, err := db.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `id` = ?;", value.Quantities, now, value.Id)
+		res, err := db.ExecContext(ctx, "UPDATE products SET `quantities` = ?, `updated_at` = ? WHERE `quantities` >= ? AND `id` = ?;", value.Quantities, now, value.Quantities, value.Id)
 
 		if err != nil {
 			return &protov1.BuyProductsResponse{

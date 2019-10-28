@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"google.golang.org/grpc"
+	_service "github.com/vctqs1/golang-manabie/pkg/services"
 	"github.com/vctqs1/golang-manabie/pkg/api"
 	"github.com/vctqs1/golang-manabie/database"
 )
@@ -16,15 +16,12 @@ import (
 func BuyAProduct(arg []*protov1.BuyProduct) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	cfg := database.GetConfig()
-
-	conn, err := grpc.Dial(":"+cfg.GRPCPort, grpc.WithInsecure())
+	
+	db, err := database.Connect();
 	if err != nil {
 		log.Printf("did not connect: <%+v>\n\n", err)
 	}
-	defer conn.Close()
-
-	client := protov1.NewProductsServiceClient(conn)
+	client := _service.NewProductsService(db);
 
 	// get products
 	req := protov1.BuyProductsRequest{
